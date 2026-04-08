@@ -1,13 +1,43 @@
-import Link from "next/link";
+import type { Metadata } from "next";
 import {
   ArrowRight,
   BadgeCheck,
   BriefcaseBusiness,
-  Building2,
   Handshake,
   Megaphone,
-  Sparkles,
 } from "lucide-react";
+
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://gdscanu.com.au";
+
+export const metadata: Metadata = {
+  title: "Sponsors & Partners",
+  description:
+    "Meet the sponsors and partners backing GDSC ANU 2026. Partner with us to connect with student developers and the tech community at ANU Canberra, October 2026.",
+  alternates: {
+    canonical: `${siteUrl}/sponsors`,
+  },
+  openGraph: {
+    title: "Sponsors & Partners | GDSC ANU 2026",
+    description:
+      "The sponsors and partners powering GDSC ANU 2026. Connect with student developers and the tech community at ANU Canberra.",
+    url: `${siteUrl}/sponsors`,
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "GDSC ANU 2026 Sponsors & Partners",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Sponsors & Partners | GDSC ANU 2026",
+    description:
+      "Partners backing GDSC ANU 2026 — connect with student developers at ANU Canberra, October 2026.",
+    images: ["/og-image.png"],
+  },
+};
 
 import Container from "@/components/ui/container";
 import SectionTitle from "@/components/ui/section-title";
@@ -69,6 +99,43 @@ const currentPartners: Sponsor[] = [
   { name: "Design Partner", type: "Creative Partner" },
 ];
 
+const partnerListSchema = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  name: "GDSC ANU 2026 Sponsors & Partners",
+  url: `${siteUrl}/sponsors`,
+  numberOfItems: 2,
+  itemListElement: [
+    {
+      "@type": "ListItem",
+      position: 1,
+      item: {
+        "@type": "Organization",
+        name: "Google",
+        url: "https://about.google",
+        description: "Title Partner of GDSC ANU 2026",
+      },
+    },
+    {
+      "@type": "ListItem",
+      position: 2,
+      item: {
+        "@type": "Organization",
+        name: "Australian National University",
+        url: "https://www.anu.edu.au",
+        description: "Institutional Partner of GDSC ANU 2026",
+        address: {
+          "@type": "PostalAddress",
+          addressLocality: "Canberra",
+          addressRegion: "ACT",
+          postalCode: "2601",
+          addressCountry: "AU",
+        },
+      },
+    },
+  ],
+};
+
 const reasons = [
   {
     icon: Handshake,
@@ -111,10 +178,14 @@ function tierAccent(name: string) {
 export default function SponsorsPage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(partnerListSchema) }}
+      />
       <PageHero
         eyebrow="Sponsors & Partners"
         title="Backed by institutions, communities, and ecosystem partners."
-        description="A dedicated partner page gives credibility to the event while creating a clear space for sponsor visibility, partner storytelling, and future collaboration."
+        description="The organisations, institutions, and communities backing GDSC ANU 2026 — helping create a student event that's practical, high-quality, and built to last."
       />
 
       <section className="border-b border-white/10 bg-black py-20 md:py-28">
@@ -158,10 +229,10 @@ export default function SponsorsPage() {
               </ul>
 
               <div className="mt-8 rounded-2xl border border-white/10 bg-black/40 p-5">
-                <p className="text-sm font-medium text-white">Sponsorship note</p>
+                <p className="text-sm font-medium text-white">Interested in partnering?</p>
                 <p className="mt-2 text-sm leading-7 text-white/65">
-                  You can later connect this page to a partner deck, sponsorship brochure, or
-                  contact workflow for outreach.
+                  Reach out via Instagram or the GDG community page to start a conversation about
+                  sponsorship and partnership opportunities.
                 </p>
               </div>
             </div>
@@ -174,7 +245,7 @@ export default function SponsorsPage() {
           <SectionTitle
             eyebrow="Current partners"
             title="Showcase the organisations backing the event"
-            description="Replace placeholders with confirmed logos, partner names, and support categories as soon as they are finalised."
+            description="Google and ANU are confirmed partners. Additional ecosystem and community partners will be announced closer to the event."
           />
 
           <div className="mt-12 grid gap-6 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-3">
@@ -202,7 +273,7 @@ export default function SponsorsPage() {
           <SectionTitle
             eyebrow="Sponsorship tiers"
             title="A flexible structure for different kinds of support"
-            description="Use these as starter tiers for your sponsor conversations. You can later customise them based on the event scale and partner goals."
+            description="Three partnership tiers designed for different levels of involvement — from title visibility to community and ecosystem support."
           />
 
           <div className="mt-12 grid gap-6 lg:grid-cols-3">
@@ -281,19 +352,23 @@ export default function SponsorsPage() {
               </p>
 
               <div className="mt-8 flex flex-wrap gap-4">
-                <Link
-                  href="/contact"
+                <a
+                  href="https://www.instagram.com/gdg_anu/"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-semibold text-black transition hover:opacity-90"
                 >
-                  Contact Organisers
+                  Contact on Instagram
                   <ArrowRight className="h-4 w-4" />
-                </Link>
+                </a>
 
                 <a
-                  href="#"
+                  href="https://gdg.community.dev/gdg-on-campus-the-australian-national-university-canberra-australia/"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="rounded-full border border-white/15 px-6 py-3 text-sm font-semibold text-white transition hover:bg-white/5"
                 >
-                  Download Partner Deck
+                  GDG Community Page
                 </a>
               </div>
             </div>
